@@ -4,6 +4,89 @@ In this example, we'll re-create the famous "opening gap" strategy, where we'll 
 
 > ⚠️ You can download the example code listed here from [this Github repository](https://github.com/tradologics/demo-strategy).
 
+## Generating a Token
+
+In order to communicate with Tradologics' cloud, we need to generate an authentication token and use it in our strategy.
+
+```bash
+$ tctl token new
+
+To create a new token, please make sure that you
+have your API Key and Secret Key handy.
+
+[?] API Key     : ************
+[?] API Secret  : ***************************
+[?] Token name: demo token
+[?] Time-to-live (seconds from now to expire) - optional: 84600
+
+Creating token...
+
+SUCCESS 🎉
+
+The token was created successfully!
+
+Name:       demo token
+Expiration: 2050-12-31T00:00:00.000Z
+Token:      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1IjoiYmY3ZTY2ZmEtMmQ4Yy0
+0ODI4LTlhNDAtMWVlNmMyNGMzNWVmIiwidCI6MzksImlhdCI6MTYwMjQ0NjAwOSwiZXhwIjo5NTU
+yMTQwMzY0MzZ9.DUjBRYzwOkC4QXPpLzklR2ql0GzUJSi_p9bmqEQJJE8
+
+```
+
+## Create a paper account
+
+Next, we'll register a our (paper) account we created with [Alpaca](https://alpaca.markets/). We'll send our orders to that broker.
+
+```
+$ tctl accounts new
+
+[?] Account name: My Paper Account
+[?] Please select broker: Alpaca
+ > Alpaca
+   Binance
+   Bitfinex
+   Bitmex
+   Interactive Brokers
+   Oanda
+   Tradologics
+
+[?] Use broker's paper account (Y/n): y
+[?] Key: ********************
+[?] Secret: ****************************************
+
+SUCCESS 🎉
+
+The broker account `my-paper-account` (Alpaca) was added to your account.
+
++-------------------------+-------------------+
+| Account                 | 24********81      |
+| Cash                    | 100084.15         |
+| Equity                  | 100084.15         |
+| Initial Margin          | 0                 |
+| Maintenance Margin      | 0                 |
+| SMA                     | 0                 |
+| Currency                | USD               |
+| Daytrade Count          | 1                 |
+| Pattern Day Trader      | No                |
+| RegT Buying Power       | 200168.3          |
+| Daytrading Buying Power | 400336.6          |
+| Shorting Enabled        | Yes               |
+| Multiplier              | 4                 |
+| Status                  | ACTIVE            |
+| Blocked                 | No                |
+| Buying Power            | 400336.6          |
+| Positions Market Value  | 0                 |
+| Unrealized P&L          | 0                 |
+| Realized P&L            | 0                 |
+| Account ID              | my-paper-account  |
+| Broker                  | alpaca            |
+| Name                    | My Paper Alpaca   |
++-------------------------+-------------------+
+
+```
+
+---
+
 ## The Strategy
 
 The below strategy is coded in Python - but it should be a straightforward process to convert or re-write it in any language. 
@@ -29,12 +112,11 @@ So let's import the library and set our API Token:
 ```python
 from tradologics import requests, helpers
 
-# --- edit this ---
 GAP_THRESHOLD_PCT = 0.01  # min. gap percent
-MY_STRATEGY_ID = "<my-strategy-id>"
-MY_BROKER_ID = "<my-account-id>"
-MY_TOKEN = "<my-tradologics-token>"
-# --- /edit this ---
+
+MY_STRATEGY_ID = "opening-gap"
+MY_BROKER_ID = "my-paper-account"
+MY_TOKEN = "eyJhbGciOiJIU*****9bmqEQJJE8"
 
 # assign token
 requests.set_token(MY_TOKEN)
@@ -143,30 +225,30 @@ tradologics>=0.0.5
 
 Now that we have our strategy code, let's create it an deploy it to Tradologics servers as a Tradelet (serverless trading function).
 
-Let's create a strategy in a `paper` mode:
+Let's create a strategy:
 
 ```
 ❯ tctl strategies new
 
 [?] Strategy name: Opening gap
 [?] Description (leave blank for none):
-[?] Mode: Paper
+[?] Mode: Broker
    Backtest
- > Paper
-   Broker
+   Paper
+ > Broker
 
-[?] Host strategy on Tradologics? (Y/n):
+[?] Host strategy on Tradologics? (Y/n): Y
 
 SUCCESS 🎉
 
-The strategy `Opening gap` (Paper) was added to your account.
+The strategy `Opening gap` (broker) was added to your account.
 
 +-------------+-------------+
 | Name        | Opening gap |
 | Strategy ID | opening-gap |
 | Description | ?           |
 | As Tradelet | Yes         |
-| Mode        | Paper       |
+| Mode        | Broker      |
 +-------------+-------------+
 ```
 
@@ -348,5 +430,5 @@ Best of luck! 💪
 
 We've seen how simple it can be to launch a trading strategy on Tradologics' cloud platform.
 
-As always, our team and I are here for every question or idea you'd like to share - so don’t hesitate to contact us by sending an email to accounts [at] tradologics [dot] com or using the chat box on [beta.tradologics.com](https://beta.tradologics.com).
+As always, our team and I are here for every question or idea you'd like to share - so don’t hesitate to contact us by sending an email to accounts@tradologics.com or using the chat box on [beta.tradologics.com](https://beta.tradologics.com).
 
