@@ -1,0 +1,18 @@
+{
+  "what": {
+    "assets": ["SPY:US", "QQQ:US", "IWM:US", "DIA:US", "VTI:US"],
+    "bar": "1day",
+    "history": 2
+  },
+  "when": {
+    "schedule": {
+      "on_days": ["mon", "tue", "wed", "thu", "fri"],
+      "exchange": "XNYS",
+      "session": {
+        "open": -5,
+        "close": 0
+      },
+      "timing": "1day"
+    }
+  }
+}
