@@ -29,11 +29,12 @@ So let's import the library and set our API Token:
 ```python
 from tradologics import requests, helpers
 
-# min. gap percent we should act upon
-GAP_THRESHOLD_PCT = 0.01
-MY_STRATEGY_ID = "my-strategy-id"
-MY_BROKER_ID = "my-account-id"
-MY_TOKEN = "MY-TRADOLOGICS-TOKEN"
+# --- edit this ---
+GAP_THRESHOLD_PCT = 0.01  # min. gap percent
+MY_STRATEGY_ID = "<my-strategy-id>"
+MY_BROKER_ID = "<my-account-id>"
+MY_TOKEN = "<my-tradologics-token>"
+# --- /edit this ---
 
 # assign token
 requests.set_token(MY_TOKEN)
