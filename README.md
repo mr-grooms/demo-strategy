@@ -347,5 +347,5 @@ Best of luck! 💪
 
 We've seen how simple it can be to launch a trading strategy on Tradologics' cloud platform.
 
-As always, our team and I are here for every question or idea you'd like to share - so don’t hesitate to contact us by sending an email to accounts@tradologics.com or using the chat box on [beta.tradologics.com](https://beta.tradologics.com).
+As always, our team and I are here for every question or idea you'd like to share - so don’t hesitate to contact us by sending an email to accounts [at] tradologics [dot] com or using the chat box on [beta.tradologics.com](https://beta.tradologics.com).
 
