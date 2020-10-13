@@ -9,7 +9,7 @@ In this example, we'll re-create the famous "opening gap" strategy, where we'll 
 In order to communicate with Tradologics' cloud, we need to generate an authentication token and use it in our strategy.
 
 ```bash
-$ tctl token new
+$ tctl tokens new
 
 To create a new token, please make sure that you
 have your API Key and Secret Key handy.
