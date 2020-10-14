@@ -80,7 +80,7 @@ def order_handler(order):
         "strategy_id": MY_STRATEGY_ID,
         "asset": asset,
         "qty": position.get("qty"),
-        "side": "sell" if order.get("side") == "long" else "buy",
+        "side": "sell" if order.get("side") == "buy" else "buy",
         "comment": "Submitting a market-on-close order",
         "tif": "cls"  # ← Makret-On-Close
     })
