@@ -45,7 +45,7 @@ def bar_handler(bars):
                 "asset": asset,
                 "qty": 100,
                 "side": "buy",
-                "comment": f"Gap was {gap} from previous open",
+                "comment": f"Gap was {gap} from previous close",
                 "tif": "opg"  # ← Makret/Limit On-Open
             })
 
