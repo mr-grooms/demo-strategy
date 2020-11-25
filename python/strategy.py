@@ -35,7 +35,7 @@ def bar_handler(bars):
     for asset in assets:
         # calculate the gap (`gap` is a Pandas series)
         # during pre-market, the "close" is the latest price ;-)
-        gap = bars[asset]["o"] / bars[asset]["c"].shift(1) - 1
+        gap = bars[asset]["c"] / bars[asset]["c"].shift(1) - 1
         gap = gap[-1]  # series' last value
 
         # submit a "market-on-open" order if the gap is > threshold
