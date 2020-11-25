@@ -24,6 +24,9 @@ def strategy(tradehook, payload):
     elif tradehook == "position":
         position_handler(payload)
 
+    elif tradehook == "error":
+        requests.post(f"/strategies/{MY_STRATEGY_ID}/stop")
+
 
 def bar_handler(bars):
     """
