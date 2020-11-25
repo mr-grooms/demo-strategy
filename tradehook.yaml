@@ -6,7 +6,6 @@ what:
   - QQQ:US
   - IWM:US
   - DIA:US
-  - VTI:US
   bar: 1day
   history: 2
 when:

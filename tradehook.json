@@ -1,6 +1,6 @@
 {
   "what": {
-    "assets": ["SPY:US", "QQQ:US", "IWM:US", "DIA:US", "VTI:US"],
+    "assets": ["SPY:US", "QQQ:US", "IWM:US", "DIA:US"],
     "bar": "1day",
     "history": 2
   },
