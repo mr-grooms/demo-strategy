@@ -2,6 +2,7 @@ from tradologics import requests, helpers
 
 # --- edit this ---
 GAP_THRESHOLD_PCT = 0.01  # min. gap percent
+STOPLOSS_THRESHOLD_PCT = 0.02  # max "stop loss"
 MY_STRATEGY_ID = "<my-strategy-id>"
 MY_BROKER_ID = "<my-account-id>"
 MY_TOKEN = "<my-tradologics-token>"
@@ -19,6 +20,9 @@ def strategy(tradehook, payload):
     elif tradehook == "order":
         # Send order tradehoks to `order_handler`
         order_handler(payload)
+
+    elif tradehook == "position":
+        position_handler(payload)
 
 
 def bar_handler(bars):
@@ -84,4 +88,31 @@ def order_handler(order):
         "side": "sell" if order.get("side") == "buy" else "buy",
         "comment": "Submitting a market-on-close order",
         "tif": "cls"  # ← Makret-On-Close
+    })
+
+    # notify us about a <STOPLOSS_THRESHOLD_PCT>% loss
+    requests.post("/monitor/position", json={
+        "asset": order.get("asset"),
+        "strategy": MY_STRATEGY_ID,
+        "direction": "long" if order.get("side") == "buy" else "short",
+        "type": "loss",
+        "pct": STOPLOSS_THRESHOLD_PCT
+    })
+
+
+def position_handler(position):
+    # exit the position
+    requests.post("/orders", json={
+        "account": MY_BROKER_ID,
+        "strategy": MY_STRATEGY_ID,
+        "asset": position.get("asset"),
+        "qty": position.get("qty"),
+        "side": "sell" if position.get("side") == "long" else "buy"
+    })
+
+    # exit the position
+    requests.delete("/orders", json={
+        "account": MY_BROKER_ID,
+        "strategy": MY_STRATEGY_ID,
+        "asset": position.get("asset"),
     })
