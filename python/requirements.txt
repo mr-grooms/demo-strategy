@@ -1,1 +1,1 @@
-tradologics>=0.0.3
+tradologics>=0.0.4
