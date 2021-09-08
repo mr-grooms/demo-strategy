@@ -124,11 +124,11 @@ requests.set_token(MY_TOKEN)
 # main strategy function
 def strategy(tradehook, payload):
   if tradehook == "bar":
-    # Send bar tradehoks to `bar_handler`
+    # Send bar tradehooks to `bar_handler`
     bar_handler(payload)
 
   elif tradehook == "order":
-    # Send order tradehoks to `order_handler`
+    # Send order tradehooks to `order_handler`
     order_handler(payload)
 ```
 
@@ -165,7 +165,7 @@ def bar_handler(bars):
         "qty": 100,
         "side": "buy",
         "comment": f"Gap was {gap} from previous open",
-        "tif": "opg"  # ← Makret/Limit On-Open
+        "tif": "opg"  # ← Market/Limit On-Open
       })
 
 ```
@@ -204,7 +204,7 @@ def order_handler(order):
     "qty": position.get("qty"),
     "side": "sell" if order.get("side") == "long" else "buy",
     "comment": "Submitting a market-on-close order",
-    "tif": "cls"  # ← Makret-On-Close
+    "tif": "cls"  # ← Market-On-Close
   })
 ```
 
